@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { PrototypeToolbar, ViewState, UseCase } from '@/components'
 import {
   colors,
@@ -10,9 +10,8 @@ import {
   fontWeights,
   borderRadiusSemantics,
   breakpoints,
-  shadowSemantics,
 } from '@/styles/design-tokens'
-import { Badge, Button, DataTable, Input, Skeleton, EmptyState, TabBar } from '@/components'
+import { Badge, Button, DataTable, Input, Skeleton, EmptyState, TabBar, ConfirmDialog, Toast, useToast } from '@/components'
 import type { BadgeProps } from '@/components/Badge/Badge'
 import type { DataTableColumn } from '@/components'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
@@ -29,15 +28,8 @@ export default function TransactionsPage() {
   const [activeTab, setActiveTab] = useState('all')
   const [activeUseCase, setActiveUseCase] = useState(0)
   const [showExportDialog, setShowExportDialog] = useState(false)
-  const [toastMessage, setToastMessage] = useState<string | null>(null)
-  const dialogPanelRef = useRef<HTMLDivElement>(null)
+  const toast = useToast()
   const isMobile = useMediaQuery(`(max-width: ${parseInt(breakpoints.md) - 1}px)`)
-
-  useEffect(() => {
-    if (showExportDialog && dialogPanelRef.current) {
-      dialogPanelRef.current.focus()
-    }
-  }, [showExportDialog])
 
   // Sort transactions by date descending
   const sortedTransactions = [...transactions].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
@@ -254,92 +246,31 @@ export default function TransactionsPage() {
       )}
 
       {/* Export confirmation dialog */}
-      {showExportDialog && (
-        <>
-          <div
-            onClick={() => setShowExportDialog(false)}
-            onKeyDown={(e) => { if (e.key === 'Escape') setShowExportDialog(false) }}
-            style={{ position: 'fixed', inset: 0, backgroundColor: colors.scrim, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <div
-              ref={dialogPanelRef}
-              tabIndex={-1}
-              onClick={(e) => e.stopPropagation()}
-              role="dialog"
-              aria-labelledby="export-dialog-title"
-              aria-describedby="export-dialog-desc"
-              style={{
-                backgroundColor: colors.surface.light,
-                borderRadius: borderRadiusSemantics.card,
-                padding: spacing['2xl'],
-                maxWidth: '420px',
-                width: '90%',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: spacing.md,
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: spacing.sm }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', backgroundColor: colors.surface.info, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.status.info} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 id="export-dialog-title" style={{ margin: 0, fontFamily: fontFamilies.display, fontSize: typography.heading.h5.fontSize, fontWeight: fontWeights.semibold, color: colors.text.highEmphasis.onLight }}>
-                    Export {filteredTransactions.length} transaction{filteredTransactions.length === 1 ? '' : 's'}
-                  </h3>
-                  <p id="export-dialog-desc" style={{ margin: `${spacing.xs} 0 0`, fontFamily: fontFamilies.body, fontSize: typography.body.sm.fontSize, color: colors.text.lowEmphasis.onLight, lineHeight: '1.5' }}>
-                    This will download a CSV file containing all transactions in the current view. To change which transactions are included, adjust the filters using the tabs above.
-                  </p>
-                </div>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: spacing.sm, marginTop: spacing.xs }}>
-                <Button emphasis="low" size="md" onClick={() => setShowExportDialog(false)}>
-                  Cancel
-                </Button>
-                <Button emphasis="high" size="md" onClick={() => { const count = filteredTransactions.length; setShowExportDialog(false); requestAnimationFrame(() => { setToastMessage(`${count} transactions exported successfully`); setTimeout(() => setToastMessage(null), 4000) }) }} leftIcon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
-                }>
-                  Export CSV
-                </Button>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+      <ConfirmDialog
+        open={showExportDialog}
+        title={`Export ${filteredTransactions.length} transaction${filteredTransactions.length === 1 ? '' : 's'}`}
+        description="This will download a CSV file containing all transactions in the current view. To change which transactions are included, adjust the filters using the tabs above."
+        confirmLabel="Export CSV"
+        cancelLabel="Cancel"
+        variant="info"
+        onConfirm={() => {
+          const count = filteredTransactions.length
+          setShowExportDialog(false)
+          toast.success(`${count} transactions exported successfully`)
+        }}
+        onCancel={() => setShowExportDialog(false)}
+      />
 
       {/* Toast */}
-      {toastMessage && (
-        <div role="status" aria-live="polite" style={{
-          position: 'fixed',
-          bottom: spacing['3xl'],
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 1100,
-          display: 'flex',
-          alignItems: 'center',
-          gap: spacing.sm,
-          padding: `${spacing.sm} ${spacing.lg}`,
-          backgroundColor: colors.surface.dark,
-          color: colors.text.highEmphasis.onDark,
-          borderRadius: borderRadiusSemantics.button,
-          fontFamily: fontFamilies.body,
-          fontSize: typography.body.sm.fontSize,
-          fontWeight: fontWeights.medium,
-          boxShadow: shadowSemantics.dropdown,
-          animation: 'toast-in 200ms ease-out',
-        }}>
-          {toastMessage}
-          <button
-            onClick={() => setToastMessage(null)}
-            style={{ background: 'none', border: 'none', color: colors.text.lowEmphasis.onDark, cursor: 'pointer', padding: 0, display: 'flex', marginLeft: spacing.xs }}
-            aria-label="Dismiss"
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10.5 3.5L3.5 10.5M3.5 3.5l7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-          </button>
-        </div>
-      )}
+      {toast.toasts.map((t) => (
+        <Toast
+          key={t.id}
+          variant={t.variant}
+          message={t.message}
+          isVisible
+          onClose={() => toast.dismiss(t.id)}
+        />
+      ))}
 
       <PrototypeToolbar viewState={viewState} onViewStateChange={setViewState} useCases={USE_CASES} activeUseCase={activeUseCase} onUseCaseChange={setActiveUseCase} />
     </div>

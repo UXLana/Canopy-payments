@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { PrototypeToolbar, ViewState, UseCase } from '@/components'
 import {
   colors,
@@ -23,6 +24,7 @@ import { StatCard } from '../StatCard'
 import { InvoiceIcon, DollarIcon, AlertIcon, CheckIcon } from '../icons'
 
 export default function InvoicesPage() {
+  const router = useRouter()
   const [viewState, setViewState] = useState<ViewState>('default')
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set())
   const [activeTab, setActiveTab] = useState('all')
@@ -141,7 +143,7 @@ export default function InvoicesPage() {
                     <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   </svg>
                 }
-                onClick={() => (window.location.href = '/create-invoice')}
+                onClick={() => router.push('/create-invoice')}
               >
                 Create Invoice
               </Button>
@@ -258,7 +260,7 @@ export default function InvoicesPage() {
                   <path d="M9 3V15M3 9H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               }
-              onClick={() => (window.location.href = '/create-invoice')}
+              onClick={() => router.push('/create-invoice')}
             >
               Create your first invoice
             </Button>

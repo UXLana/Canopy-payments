@@ -34,18 +34,7 @@ import {
 import { invoices, organizations, facilities, transactions } from '../data'
 import type { DataTableColumn } from '@/components'
 import type { InvoiceLineItem, Transaction } from '../data'
-
-function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = React.useState(false)
-  React.useEffect(() => {
-    const mql = window.matchMedia(query)
-    setMatches(mql.matches)
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches)
-    mql.addEventListener('change', handler)
-    return () => mql.removeEventListener('change', handler)
-  }, [query])
-  return matches
-}
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const USE_CASES: UseCase[] = [
   { label: 'UC1 -- Single-facility retailer', description: 'Sarah: processes transactions at one dispensary in Colorado' },

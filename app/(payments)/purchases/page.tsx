@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { PrototypeToolbar, ViewState, UseCase } from '@/components'
 import {
   colors,
@@ -28,6 +29,7 @@ const poStatusLabel = (status: Invoice['status']) => {
 }
 
 export default function PurchaseOrdersPage() {
+  const router = useRouter()
   const [viewState, setViewState] = useState<ViewState>('default')
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set())
   const [activeTab, setActiveTab] = useState('all')
@@ -121,7 +123,7 @@ export default function PurchaseOrdersPage() {
                 emphasis="high"
                 size="md"
                 leftIcon={<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>}
-                onClick={() => (window.location.href = '/create-invoice')}
+                onClick={() => router.push('/create-invoice')}
               >
                 Create PO
               </Button>
@@ -193,7 +195,7 @@ export default function PurchaseOrdersPage() {
             title="No purchase orders yet"
             description="Create your first purchase order to start tracking vendor orders."
           >
-            <Button emphasis="high" size="lg" leftIcon={<svg width={18} height={18} viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 3V15M3 9H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>} onClick={() => (window.location.href = '/create-invoice')}>
+            <Button emphasis="high" size="lg" leftIcon={<svg width={18} height={18} viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 3V15M3 9H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>} onClick={() => router.push('/create-invoice')}>
               Create your first PO
             </Button>
           </EmptyState>

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { PrototypeToolbar, ViewState } from '@/components'
 import type { UseCase } from '@/components'
 import {
@@ -163,7 +164,7 @@ function InvoicePreview({
   return (
     <div
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.surface.light,
         borderRadius: borderRadiusSemantics.card,
         border: `1px solid ${colors.border.lowEmphasis.onLight}`,
         padding: spacing.md,
@@ -421,6 +422,7 @@ function InvoicePreview({
 // =============================================================================
 
 export default function CreateInvoicePage() {
+  const router = useRouter()
   const [viewState, setViewState] = useState<ViewState>('default')
   const [activeStep, setActiveStep] = useState(0)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
@@ -505,7 +507,7 @@ export default function CreateInvoicePage() {
   const getCategoryLabel = (val: string) => categoryOptions.find((c) => c.value === val)?.label ?? val
 
   const receiverOrgName = organizations.find((o) => o.id === formData.receiverOrgId)?.name ?? 'the receiver'
-  const invoiceNumber = `INV-2026-${String(Math.floor(Math.random() * 9000) + 1000).padStart(4, '0')}`
+  const [invoiceNumber] = useState(() => `INV-2026-${String(Math.floor(Math.random() * 9000) + 1000).padStart(4, '0')}`)
 
   // Check if all required fields across all steps are filled
   const allRequiredFieldsFilled = (() => {
@@ -579,7 +581,7 @@ export default function CreateInvoicePage() {
     setShowConfirmDialog(false)
     toast.success(`Invoice ${invoiceNumber} has been created and sent to ${receiverOrgName}.`)
     setTimeout(() => {
-      window.location.href = '/invoices'
+      router.push('/invoices')
     }, 2000)
   }
 
@@ -896,7 +898,7 @@ export default function CreateInvoicePage() {
       <FullScreenModal
         open={true}
         onClose={() => {
-          window.location.href = '/invoices'
+          router.push('/invoices')
         }}
         title={formData.receiverOrgId ? `Invoice — ${getOrgName(formData.receiverOrgId)}` : 'New Invoice'}
         columns={2}
@@ -929,7 +931,7 @@ export default function CreateInvoicePage() {
                 onClick={() => {
                   toast.success('Invoice draft saved.')
                   setTimeout(() => {
-                    window.location.href = '/invoices'
+                    router.push('/invoices')
                   }, 1500)
                 }}
               >
@@ -992,32 +994,3 @@ export default function CreateInvoicePage() {
   )
 }
 
-// =============================================================================
-// REVIEW FIELD HELPER
-// =============================================================================
-
-function ReviewField({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: spacing['2xs'] }}>
-      <span
-        style={{
-          fontFamily: fontFamilies.body,
-          fontSize: typography.label.sm.fontSize,
-          fontWeight: fontWeights.medium,
-          color: colors.text.lowEmphasis.onLight,
-        }}
-      >
-        {label}
-      </span>
-      <span
-        style={{
-          fontFamily: fontFamilies.body,
-          fontSize: typography.body.md.fontSize,
-          color: colors.text.highEmphasis.onLight,
-        }}
-      >
-        {value}
-      </span>
-    </div>
-  )
-}
