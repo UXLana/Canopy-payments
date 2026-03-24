@@ -757,7 +757,7 @@ export default function InvoicesV2({ viewState, activeUseCase }: InvoicesV2Props
           {/* C5: Export */}
           <Button
             emphasis="low"
-            size="sm"
+            size="md"
             leftIcon={
               <svg width={14} height={14} viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M8 2V10M8 10L5 7M8 10L11 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
