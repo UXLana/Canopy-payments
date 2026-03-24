@@ -1,0 +1,329 @@
+/* =============================================================================
+   Prism Design System - Global Styles
+   Uses CSS custom properties mapped to design tokens
+   ============================================================================= */
+
+:root {
+  /* Legacy neutral scale */
+  --color-brand-primary: #13352C;
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-50: #FAFAFA;
+  --color-neutral-100: #F5F5F5;
+  --color-neutral-200: #EEEEEE;
+  --color-neutral-300: #E0E0E0;
+  --color-neutral-400: #BDBDBD;
+  --color-neutral-500: #9E9E9E;
+  --color-text-high-emphasis: rgba(0, 0, 0, 0.95);
+
+  /* Themeable color tokens (Trace defaults, overridden by SwitchableThemeProvider) */
+  --prism-brand-default: #005151;
+  --prism-brand-darker: #003133;
+  --prism-brand-lighter: #17978E;
+  --prism-accent-default: #E68200;
+  --prism-accent-darker: #AD6200;
+  --prism-accent-lighter: #FF9E1A;
+  --prism-surface-light: #FFFFFF;
+  --prism-surface-lightDarker: #F5F5F5;
+  --prism-surface-dark: #4A4A4A;
+  --prism-surface-darkDarker: #323232;
+  --prism-surface-disabled-onLight: rgba(0, 0, 0, 0.03);
+  --prism-surface-disabled-onDark: rgba(255, 255, 255, 0.20);
+  --prism-surface-info: #F4F6FF;
+  --prism-surface-success: #EDF6F4;
+  --prism-surface-warning: #FCF6ED;
+  --prism-surface-important: #FDF2F3;
+  --prism-surfaceBorder-info: #D1D9FF;
+  --prism-surfaceBorder-success: #C5E2DB;
+  --prism-surfaceBorder-warning: #F2DABA;
+  --prism-surfaceBorder-important: #F8CFD3;
+  --prism-text-highEmphasis-onLight: rgba(0, 0, 0, 0.95);
+  --prism-text-highEmphasis-onDark: #FFFFFF;
+  --prism-text-lowEmphasis-onLight: rgba(0, 0, 0, 0.60);
+  --prism-text-lowEmphasis-onDark: rgba(255, 255, 255, 0.70);
+  --prism-text-disabled-onLight: rgba(0, 0, 0, 0.30);
+  --prism-text-disabled-onDark: rgba(255, 255, 255, 0.30);
+  --prism-text-action-enabled: #016CA2;
+  --prism-text-action-hover: #005680;
+  --prism-text-action-active: #00476B;
+  --prism-text-success: #006B50;
+  --prism-text-warning: #A35C00;
+  --prism-text-important: #C10B1E;
+  --prism-border-lowEmphasis-onLight: rgba(0, 0, 0, 0.10);
+  --prism-border-lowEmphasis-onDark: rgba(255, 255, 255, 0.10);
+  --prism-border-lowEmphasis-hover-onLight: rgba(0, 0, 0, 0.27);
+  --prism-border-lowEmphasis-hover-onDark: rgba(255, 255, 255, 0.27);
+  --prism-border-midEmphasis-onLight: rgba(0, 0, 0, 0.15);
+  --prism-border-midEmphasis-onDark: rgba(255, 255, 255, 0.15);
+  --prism-border-highEmphasis-onLight: rgba(0, 0, 0, 0.42);
+  --prism-border-highEmphasis-onDark: rgba(255, 255, 255, 0.43);
+  --prism-icon-enabled-onLight: rgba(0, 0, 0, 0.55);
+  --prism-icon-enabled-onDark: rgba(255, 255, 255, 0.94);
+  --prism-icon-hover-onLight: rgba(0, 0, 0, 0.65);
+  --prism-icon-active-onLight: rgba(0, 0, 0, 0.75);
+  --prism-icon-selected-onLight: rgba(0, 0, 0, 0.85);
+  --prism-icon-disabled-onLight: rgba(0, 0, 0, 0.20);
+  --prism-icon-disabled-onDark: rgba(255, 255, 255, 0.20);
+  --prism-icon-lowEmphasis-enabled-onLight: rgba(0, 0, 0, 0.43);
+  --prism-icon-lowEmphasis-enabled-onDark: rgba(255, 255, 255, 0.65);
+  --prism-iconBg-info: #EBEFFF;
+  --prism-iconBg-info_onDark: rgba(122, 145, 255, 0.25);
+  --prism-iconBg-success: #DEEDE9;
+  --prism-iconBg-success_onDark: rgba(0, 173, 130, 0.25);
+  --prism-iconBg-warning: #F9ECDC;
+  --prism-iconBg-warning_onDark: rgba(230, 130, 0, 0.25);
+  --prism-iconBg-important: #FBE4E7;
+  --prism-iconBg-important_onDark: rgba(248, 104, 118, 0.25);
+  --prism-action-enabled: #0176B2;
+  --prism-action-hover: #005C89;
+  --prism-action-active: #004E73;
+  --prism-action-important-enabled: #C10B1E;
+  --prism-action-important-hover: #A20919;
+  --prism-action-important-active: #850715;
+  --prism-action-monochrome-onLight-enabled: rgba(0, 0, 0, 0.55);
+  --prism-action-monochrome-onLight-hover: rgba(0, 0, 0, 0.65);
+  --prism-action-monochrome-onLight-active: rgba(0, 0, 0, 0.75);
+  --prism-action-monochrome-onLight-selected: rgba(0, 0, 0, 0.85);
+  --prism-action-monochrome-onLight-disabled: rgba(0, 0, 0, 0.20);
+  --prism-action-monochrome-onLight-bg: rgba(0, 0, 0, 0.08);
+  --prism-action-monochrome-onLight-lowEmphasis-enabled: rgba(0, 0, 0, 0.43);
+  --prism-action-monochrome-onDark-enabled: rgba(255, 255, 255, 0.94);
+  --prism-action-monochrome-onDark-hover: rgba(255, 255, 255, 1);
+  --prism-action-monochrome-onDark-active: rgba(255, 255, 255, 1);
+  --prism-action-monochrome-onDark-selected: rgba(255, 255, 255, 1);
+  --prism-action-monochrome-onDark-disabled: rgba(255, 255, 255, 0.20);
+  --prism-action-monochrome-onDark-bg: rgba(255, 255, 255, 0.09);
+  --prism-action-monochrome-onDark-lowEmphasis-enabled: rgba(255, 255, 255, 0.65);
+  --prism-status-info: #617BFF;
+  --prism-status-info_onDark: rgba(122, 145, 255, 0.25);
+  --prism-status-success: #1B7F66;
+  --prism-status-success_onDark: rgba(0, 173, 130, 0.25);
+  --prism-status-warning: #CC7300;
+  --prism-status-warningLight: #F3DCBD;
+  --prism-status-warning_onDark: rgba(230, 130, 0, 0.25);
+  --prism-status-important: #DC0C22;
+  --prism-status-important_onDark: rgba(248, 104, 118, 0.25);
+  --prism-badge-info: #4766FF;
+  --prism-badge-infoLight: #DBE2FF;
+  --prism-badge-success: #19856B;
+  --prism-badge-successLight: #D9EDE6;
+  --prism-badge-warning: #AD6200;
+  --prism-badge-important: #E80D24;
+  --prism-badge-importantLight: #FFE3E7;
+  --prism-badge-aqua: #167F92;
+  --prism-badge-aquaLight: #B4EAF3;
+  --prism-badge-green: #40851E;
+  --prism-badge-greenLight: #DAF4CD;
+  --prism-badge-yellow: #8F6F00;
+  --prism-badge-yellowLight: #FFE68F;
+  --prism-badge-fuschia: #CF26B8;
+  --prism-badge-fuschiaLight: #FCCFF6;
+  --prism-badge-purple: #A14CE1;
+  --prism-badge-purpleLight: #EDDCF9;
+  --prism-badge-charcoal: #4F4F4F;
+  --prism-badge-charcoalLight: #E3E3E3;
+  --prism-avatar-01: #D6EAFF;
+  --prism-avatar-02: #FFDBFA;
+  --prism-avatar-03: #EFE0FF;
+  --prism-avatar-04: #CFEFC2;
+  --prism-avatar-05: #BEF4ED;
+  --prism-avatar-06: #FFE68F;
+  --prism-avatar-07: #FFE3DB;
+  --prism-avatar-08: #FFE2C2;
+  --prism-dataViz-border: #000000;
+  --prism-dataViz-01: #001446;
+  --prism-dataViz-02: #062E69;
+  --prism-dataViz-03: #094A8D;
+  --prism-dataViz-04: #0068B2;
+  --prism-dataViz-05: #0094BE;
+  --prism-dataViz-06: #37B9B2;
+  --prism-dataViz-07: #9FD7AB;
+  --prism-dataViz-08: #F0F2BD;
+  --prism-dataViz-09: #F1D89A;
+  --prism-dataViz-10: #EFB777;
+  --prism-dataViz-11: #ED9461;
+  --prism-dataViz-12: #E96959;
+  --prism-dataViz-13: #C74046;
+  --prism-dataViz-14: #95222C;
+  --prism-dataViz-15: #660011;
+  --prism-cvd-blue: #0072B2;
+  --prism-cvd-lightBlue: #56B4E9;
+  --prism-cvd-yellow: #F0E442;
+  --prism-cvd-green: #009E73;
+  --prism-cvd-orange: #E69F00;
+  --prism-cvd-vermillion: #D55E00;
+  --prism-cvd-pink: #CC79A7;
+  --prism-cvd-charcoal: #323232;
+  --prism-hover-onLight: rgba(0, 0, 0, 0.05);
+  --prism-hover-onDark: rgba(255, 255, 255, 0.15);
+  --prism-selected-onLight: rgba(0, 0, 0, 0.09);
+  --prism-selectedHighlight: #E7F2EE;
+  --prism-selectedHighlight_hover: #D0E6DE;
+  --prism-focusBorder-onLight: #3086BF;
+  --prism-focusBorder-onDark: rgba(255, 255, 255, 0.65);
+  --prism-scrim: rgba(0, 0, 0, 0.32);
+  --prism-scrollbar-enabled-onLight: rgba(0, 0, 0, 0.42);
+  --prism-scrollbar-enabled-onDark: rgba(255, 255, 255, 0.43);
+  --prism-scrollbar-hover-onLight: rgba(0, 0, 0, 0.57);
+  --prism-scrollbar-hover-onDark: rgba(255, 255, 255, 0.58);
+  --prism-scrollbar-active-onLight: rgba(0, 0, 0, 0.72);
+  --prism-scrollbar-active-onDark: rgba(255, 255, 255, 0.73);
+  --prism-navItemText-enabled-onLight: rgba(0, 0, 0, 0.72);
+  --prism-navItemText-enabled-onDark: rgba(255, 255, 255, 0.88);
+  --prism-buttonToggleBg-onLight: rgba(0, 0, 0, 0.08);
+  --prism-buttonToggleBg-onDark: rgba(255, 255, 255, 0.08);
+  --prism-chipBg-enabled: rgba(0, 0, 0, 0.08);
+  --prism-chipBg-hover: rgba(0, 0, 0, 0.13);
+  --prism-progressIndicatorTrack: rgba(0, 0, 0, 0.15);
+  --prism-tableCellHighlight-highEmphasis: #78CFB8;
+  --prism-tableCellHighlight-midEmphasis: #E7F2EE;
+  --prism-grid-finishedRowText: #595959;
+  --prism-grid-packageIconColor: #595959;
+
+  /* ==========================================================================
+     Non-color theme tokens (Trace defaults)
+     Overridden by SwitchableThemeProvider at runtime for other themes
+     ========================================================================== */
+
+  /* Typography */
+  --prism-typo-fontFamilies-display: var(--font-dm-sans), sans-serif;
+  --prism-typo-fontFamilies-body: var(--font-dm-sans), sans-serif;
+  --prism-typo-fontFamilies-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --prism-typo-fontWeights-regular: 400;
+  --prism-typo-fontWeights-medium: 500;
+  --prism-typo-fontWeights-semibold: 600;
+  --prism-typo-fontWeights-bold: 700;
+  --prism-typo-scale-lineHeightTight: 1.2;
+  --prism-typo-scale-lineHeightNormal: 1.5;
+  --prism-typo-scale-letterSpacingHeading: -0.5px;
+  --prism-typo-scale-letterSpacingBody: 0px;
+
+  /* Border Radius — Trace base=4 */
+  --prism-radius-none: 0px;
+  --prism-radius-xs: 4px;
+  --prism-radius-sm: 8px;
+  --prism-radius-md: 16px;
+  --prism-radius-lg: 24px;
+  --prism-radius-xl: 32px;
+  --prism-radius-2xl: 48px;
+  --prism-radius-3xl: 64px;
+  --prism-radius-full: 9999px;
+
+  /* Component Radius — Trace base=4 */
+  --prism-comp-radius-badge: 8px;
+  --prism-comp-radius-input: 8px;
+  --prism-comp-radius-button: 12px;
+  --prism-comp-radius-card: 24px;
+  --prism-comp-radius-modal: 32px;
+  --prism-comp-radius-chip: 9999px;
+  --prism-comp-radius-avatar: 9999px;
+
+  /* Elevation (Shadows) */
+  --prism-elevation-none: none;
+  --prism-elevation-xs: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  --prism-elevation-sm: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+  --prism-elevation-md: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --prism-elevation-lg: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --prism-elevation-xl: 0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --prism-elevation-2xl: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --prism-elevation-inner: inset 0px 2px 4px rgba(0, 0, 0, 0.06);
+  --prism-elevation-brand: 0px 4px 14px rgba(0, 81, 81, 0.25);
+  --prism-elevation-brandLg: 0px 10px 25px rgba(0, 81, 81, 0.3);
+
+  /* Spacing (semantic overrides) */
+  --prism-space-unit: 4px;
+  --prism-space-inputPadding: 12px;
+  --prism-space-buttonPadding: 16px;
+  --prism-space-cardPadding: 24px;
+  --prism-space-sectionGap: 48px;
+  --prism-space-componentGap: 16px;
+
+  /* Icon Style */
+  --prism-icon-style-set: outlined;
+  --prism-icon-style-strokeWidth: 1.5;
+  --prism-icon-style-cornerStyle: round;
+  --prism-icon-style-defaultSize: 20;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  font-family: var(--prism-typo-fontFamilies-body);
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-neutral-50);
+  color: var(--color-text-high-emphasis);
+  line-height: 1.5;
+}
+
+::selection {
+  background-color: rgba(19, 53, 44, 0.2);
+}
+
+/* Custom scrollbar - uses neutral color scale */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-100);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-400);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-500);
+}
+
+/* Focus outline for accessibility - uses brand primary */
+:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+/* SVG icon rendering optimizations */
+svg {
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+
+/* Crisp icon rendering at all sizes */
+svg path,
+svg line,
+svg polyline,
+svg polygon,
+svg circle,
+svg rect,
+svg ellipse {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Smooth transitions for icon color changes */
+svg[stroke="currentColor"] {
+  transition: color 0.15s ease;
+}
+
+code,
+pre,
+kbd,
+samp,
+table code,
+td code,
+p code {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+}

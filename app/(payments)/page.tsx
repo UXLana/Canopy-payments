@@ -1,0 +1,6 @@
+'use client'
+import { useEffect } from 'react'
+export default function CanopyPaymentsIndex() {
+  useEffect(() => { window.location.href = '/dashboard' }, [])
+  return null
+}
